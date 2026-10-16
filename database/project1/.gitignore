@@ -1,0 +1,42 @@
+# ---- 编译产物 ----
+*.class
+target/
+build/
+out/
+
+# ---- 依赖与二进制 ----
+*.jar
+!gradle-wrapper.jar
+
+# ---- 实验数据（体积大，按 README 自行下载） ----
+*.tsv
+*.csv
+*.dat
+data/
+csv/
+_layers/
+_layouts/
+_work/
+
+# ---- IDE ----
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# ---- 操作系统 ----
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# ---- 内部交接笔记（含数据库明文密码，禁止提交）----
+PROGRESS.md
+*_bak.md
+
+# ---- 临时文件 ----
+*.log
+*.tmp
+*.bak
+report.pdf.tmp
