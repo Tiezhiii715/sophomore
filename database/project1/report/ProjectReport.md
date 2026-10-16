@@ -106,12 +106,12 @@
 ##### 组 1：文件程序
 运行java -Xmx4g -cp . MovieBench file search love
 
-<p align="center"><img src="image.png" width="60%"></p>
+<img src="image.png" width="60%">
 
 ##### 组 2：PostgreSQL
 运行java -Xmx4g -cp ".;postgresql-42.2.5.jar" MovieBench pg search love
 
-<p align="center"><img src="image-1.png" width="60%"></p>
+<img src="image-1.png" width="60%">
 
 可以发现postgreSQL相对于文件快了3.26倍。但这里查询条件用不上索引，它同样要把几万行数据全部读一遍，拿每一行去跟love比一下，可以说跟文件做的事基本一模一样。
 那么到底快在哪了？
@@ -120,25 +120,25 @@
 ##### 组 3：openGauss
 运行java -Xmx4g "-Dog.driver=org.postgresql.Driver" -cp ".;postgresql-42.2.5.jar" MovieBench og search love
 
-<p align="center"><img src="image-2.png" width="60%"></p>
+<img src="image-2.png" width="60%">
 
 这一组在运行的时候相对于文件慢了6.4%。openGauss在这里输给了一个读文件的普通程序，这又是为什么？
 我让ai整理了数据库内部的执行计划：
 
-<p align="center"><img src="image-3.png" width="50%"></p>
+<img src="image-3.png" width="50%">
 
 所以问题在哪就显现出来了：
 PostgreSQL 18 看到表很大，自动把全表扫描拆给 3 个进程干；openGauss 我们设了query_dop = 1（不并行），一个人从头扫到尾。
 
 下面我们将openGauss的并行开开再运行一次：
 
-<p align="center"><img src="image-4.png" width="60%"></p>
+<img src="image-4.png" width="60%">
 
 上图是单次运行的结果（524.091 ms），后面表 4-1-1 里报的是 5 次测量的中位数 482.512 ms。运行时间明显降低了。
 
 同样地，把postgreSQL的并行关掉运行：
 
-<p align="center"><img src="image-5.png" width="60%"></p>
+<img src="image-5.png" width="60%">
 
 关掉并行后耗时升到约 974 ms 。看来 PostgreSQL 那 3.26 倍的优势里，有相当一部分是并行 worker 贡献的。
 
@@ -205,7 +205,7 @@ PostgreSQL 18 看到表很大，自动把全表扫描拆给 3 个进程干；ope
 
 组 1 运行 `java -Xmx4g -cp . MovieBench file update T Ttt`：
 
-<p align="center"><img src="image-6.png" width="60%"></p>
+<img src="image-6.png" width="60%">
 
 组 2、组 3 执行同一句 `UPDATE`，结果见下表。
 
@@ -271,7 +271,7 @@ E2里的慢，有两种可能：
 
 运行 `java -Xmx4g -cp . MovieBench file update T X`
 
-<p align="center"><img src="image-8.png" width="60%"></p>
+<img src="image-8.png" width="60%">
 
 程序没有新建文件，而是打开 `people_eq.tsv` 直接改字节。跑完后：
 
@@ -324,7 +324,7 @@ E1 和 E2 的查询条件都用不上数据库已有的主键索引（都是 `%.
 
 运行 `java -Xmx6g -cp . MovieBench file point 1234567`。
 
-<p align="center"><img src="image-7.png" width="60%"></p>
+<img src="image-7.png" width="60%">
 
 上图是文件侧的输出，我们可以看见这个数据很有意思：
 
@@ -368,15 +368,15 @@ E1 和 E2 的查询条件都用不上数据库已有的主键索引（都是 `%.
 运行结果：
 文件：
 
-<p align="center"><img src="image-9.png" width="60%"></p>
+<img src="image-9.png" width="60%">
 
 postgreSQL：
 
-<p align="center"><img src="image-10.png" width="60%"></p>
+<img src="image-10.png" width="60%">
 
 openGauss：
 
-<p align="center"><img src="image-11.png" width="60%"></p>
+<img src="image-11.png" width="60%">
 
 #### 结果统计
 
@@ -392,9 +392,9 @@ openGauss：
 
 结果又是openGauss慢了许多，下图是运行的查询，依旧问题在并行上，把openGauss的并行开开重新运行，快了快4倍。
 
-<p align="center"><img src="image-12.png" width="60%"></p>
+<img src="image-12.png" width="60%">
 
-<p align="center"><img src="image-13.png" width="60%"></p>
+<img src="image-13.png" width="60%">
 
 只看"连接"这一步，文件最快，但它干的活更少，这个"快"不能直接得出结论。**算上装载，PostgreSQL 反超近 2 倍。**
 
