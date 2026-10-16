@@ -124,7 +124,9 @@
 
 这一组在运行的时候相对于文件慢了6.4%。openGauss在这里输给了一个读文件的普通程序，这又是为什么？
 我让ai整理了数据库内部的执行计划：
-<img src="image-3.png" width="70%">
+
+<img src="image-3.png" width="55%">
+
 所以问题在哪就显现出来了：
 PostgreSQL 18 看到表很大，自动把全表扫描拆给 3 个进程干；openGauss 我们设了query_dop = 1（不并行），一个人从头扫到尾。
 
