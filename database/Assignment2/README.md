@@ -1,4 +1,5 @@
 # Assignment 2 实验报告
+https://github.com/Tiezhiii715/sophomore/tree/main/database/Assignment2#readme
 
 ## Scalar Subquery 与 LEFT JOIN 的性能比较
 
