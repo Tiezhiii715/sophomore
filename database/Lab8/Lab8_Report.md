@@ -1,4 +1,4 @@
-# Lab 8 事务实验报告
+# Lab8报告
 
 [GitHub 在线报告](https://github.com/Tiezhiii715/sophomore/blob/main/database/Lab8/Lab8_Report.md)
 
@@ -24,17 +24,17 @@
 
 执行 ROLLBACK 后，张三恢复且康八工资恢复为 15000，上一事务的加薪保留。
 
-## E2 一致性与保存点
+## E2 一致性
 
-<img src="images/e2-01.png" alt="E2 一致性与保存点 截图 1" width="820">
+<img src="images/e2-01.png" alt="E2 一致性 截图 1" width="820">
 
 本组开始前，庄七、康八和聂九的工资分别为 10000、15000 和 6500。
 
-<img src="images/e2-02.png" alt="E2 一致性与保存点 截图 2" width="820">
+<img src="images/e2-02.png" alt="E2 一致性 截图 2" width="820">
 
 保存点前庄七加薪至 11000，保存点后康八减薪至 14000。
 
-<img src="images/e2-03.png" alt="E2 一致性与保存点 截图 3" width="820">
+<img src="images/e2-03.png" alt="E2 一致性 截图 3" width="820">
 
 回滚到 sp01 后庄七的加薪保留，康八恢复为 15000，数据与保留的操作对应。
 
@@ -78,7 +78,7 @@ A 再次查询，可以看到张三和李四两条已提交记录。
 
 <img src="images/e5-01.png" alt="E5 可重复读 截图 1" width="820">
 
-事务开始后查询得到张三、李四两条记录，作为本组初始快照。
+事务开始后查询得到张三、李四两条记录。
 
 <img src="images/e5-02.png" alt="E5 可重复读 截图 2" width="820">
 
